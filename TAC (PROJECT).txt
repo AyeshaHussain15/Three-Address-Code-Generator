@@ -1,0 +1,27 @@
+class SymbolTable
+{
+private:
+    set<char> identifiers;
+
+public:
+
+    void build(const string& expr)
+    {
+        identifiers.clear();
+
+        for(char ch : expr)
+        {
+            if(isalpha(ch))
+                identifiers.insert(ch);
+        }
+    }
+
+    void display()
+    {
+        cout << "\n========== SYMBOL TABLE ==========\n";
+        cout << "Identifier\n----------\n";
+
+        for(char id : identifiers)
+            cout << id << endl;
+    }
+};
