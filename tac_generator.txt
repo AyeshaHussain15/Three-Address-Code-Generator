@@ -1,0 +1,71 @@
+string infixToPostfix(string expr)
+{
+    stack<char> st;
+    string postfix;
+
+    for(char ch : expr)
+    {
+        if(isOperand(ch))
+            postfix += ch;
+
+        else if(ch=='(')
+            st.push(ch);
+
+        else if(ch==')')
+        {
+            while(!st.empty() && st.top()!='(')
+            {
+                postfix += st.top();
+                st.pop();
+            }
+            if(!st.empty()) st.pop();
+        }
+
+        else if(isOperator(ch))
+        {
+            while(!st.empty() &&
+                  precedence(st.top()) >= precedence(ch))
+            {
+                postfix += st.top();
+                st.pop();
+            }
+            st.push(ch);
+        }
+    }
+
+    while(!st.empty())
+    {
+        postfix += st.top();
+        st.pop();
+    }
+
+    return postfix;
+}
+TAC Generator
+class TACGenerator
+{
+private:
+    vector<string> tacCode;
+    int tempCount;
+
+public:
+    TACGenerator()
+    {
+        tempCount = 1;
+    }
+
+    string newTemp()
+    {
+        return "t" + to_string(tempCount++);
+    }
+
+    void generate(string expr)
+    {
+        ...
+    }
+
+    vector<string> getCode()
+    {
+        return tacCode;
+    }
+};
